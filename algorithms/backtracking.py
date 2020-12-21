@@ -16,8 +16,8 @@ def backtracking_rec(index, number_of_nodes, graph, color_assignment, k_coloring
             # Assign the color the node
             color_assignment[index] = color
             # Move to next nodes
-            solution_found, color_assignment = backtracking_rec(index+1, number_of_nodes
-                                                                , graph, color_assignment, k_coloring)
+            solution_found, color_assignment = backtracking_rec(index+1, number_of_nodes,
+                                                                graph, color_assignment, k_coloring)
             # if solution found return it
             if solution_found:
                 return True, color_assignment
