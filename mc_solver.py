@@ -1,6 +1,5 @@
 import click
-from algorithms import backtracking
-from algorithms import min_conflicts
+from algorithms import backtracking, min_conflicts, backtracking_with_forward_checking
 
 
 @click.command()
@@ -37,7 +36,11 @@ def solver(algorithm, k_coloring, number_of_nodes):
         else:
             print("No Solution exits.")
     elif algorithm == "bt-fc":
-        pass
+        solution_exits, answer = backtracking_with_forward_checking(6, graph, k_coloring)
+        if solution_exits:
+            print(answer)
+        else:
+            print("No Solution exits.")
 
 
 if __name__ == '__main__':
