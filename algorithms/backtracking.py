@@ -1,7 +1,7 @@
 def backtracking(number_of_nodes, graph, k_coloring):
     """Backtracking algorithm base function"""
     # -1 means unassigned.
-    color_assignment = number_of_nodes * [-1]
+    color_assignment = [-1 for x in range(number_of_nodes)]
     # Start with the first node
     return backtracking_rec(0, number_of_nodes, graph, color_assignment, k_coloring)
 
@@ -18,17 +18,17 @@ def backtracking_rec(index, number_of_nodes, graph, color_assignment, k_coloring
             # Move to next nodes
             solution_found, color_assignment = backtracking_rec(index+1, number_of_nodes
                                                                 , graph, color_assignment, k_coloring)
-
+            # if solution found return it
             if solution_found:
                 return True, color_assignment
-    return False, []
+    # This means that there is no solution exists
+    return False, color_assignment
 
 
 def is_safe_assignment(index_of_the_node, graph, color_assigned_to_node, color_assignment):
     """Implements function is safe that make sure that the current assignment is safe to be assigned"""
     # Loop on all neighbors of the node assigned and check if the value assigned to the neighbor
     # is similar to the value assigned to the node, if so return false
-    print("neighbors to be checked", graph[index_of_the_node], "\n")
     for neighbor in graph[index_of_the_node]:
         if color_assignment[neighbor] == color_assigned_to_node:
             return False
