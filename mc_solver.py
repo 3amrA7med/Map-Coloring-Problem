@@ -1,9 +1,9 @@
 import click
-from algorithms import backtracking, min_conflicts, backtracking_with_forward_checking
+from algorithms import backtracking, min_conflicts, backtracking_with_forward_checking, backtracking_with_mac
 
 
 @click.command()
-@click.option('-a', '--algorithm', type=click.Choice(['mc', 'bt', 'bt-fc', 'bc-mac']),
+@click.option('-a', '--algorithm', type=click.Choice(['mc', 'bt', 'bt-fc', 'bt-mac']),
               help='Algorithm type.', required=True, default='bt')
 @click.option('-k', '--k_coloring', required=True,  type=click.types.INT,
               help='Number of colors to solve this problem(only 3 and 4).', default=3)
@@ -37,6 +37,12 @@ def solver(algorithm, k_coloring, number_of_nodes):
             print("No Solution exits.")
     elif algorithm == "bt-fc":
         solution_exits, answer = backtracking_with_forward_checking(number_of_nodes, graph, k_coloring)
+        if solution_exits:
+            print(answer)
+        else:
+            print("No Solution exits.")
+    elif algorithm == "bt-mac":
+        solution_exits, answer = backtracking_with_mac(number_of_nodes, graph, k_coloring)
         if solution_exits:
             print(answer)
         else:

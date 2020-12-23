@@ -20,7 +20,7 @@ def backtracking_with_mac_rec(index, number_of_nodes, graph, color_assignment, k
         # Assign the color the node
         color_assignment[index] = [color]
         # Forward checking step
-        inferences, mac_color_assignment = maintaining_arc_consistency(graph, color, color_assignment, number_of_nodes)
+        inferences, mac_color_assignment = maintaining_arc_consistency(graph, color_assignment, number_of_nodes)
         if inferences:
             # Set the new color assignment to the values obtained from forward checking
             color_assignment = mac_color_assignment
@@ -36,7 +36,7 @@ def backtracking_with_mac_rec(index, number_of_nodes, graph, color_assignment, k
     return False, color_assignment
 
 
-def maintaining_arc_consistency(graph, color_assigned_to_node, color_assignment, number_of_nodes):
+def maintaining_arc_consistency(graph, color_assignment, number_of_nodes):
     """This function extracts every possible arc and add it to the queue and check it. """
     # Initializing a queue
     q = deque()
@@ -62,7 +62,8 @@ def maintaining_arc_consistency(graph, color_assigned_to_node, color_assignment,
                 # Don't add the head node as the tail
                 if neighbor != head:
                     arc = [neighbor, tail]
-                    q.append(arc)
+                    if not (arc in q):
+                        q.append(arc)
 
     # All arcs are consistent
     return True, color_assignment
