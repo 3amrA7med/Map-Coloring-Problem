@@ -1,5 +1,6 @@
 import click
 from algorithms import backtracking, min_conflicts, backtracking_with_forward_checking, backtracking_with_mac
+from utils import generate_random_graph, plot_graph
 
 
 @click.command()
@@ -11,22 +12,21 @@ from algorithms import backtracking, min_conflicts, backtracking_with_forward_ch
               help='Number of nodes used in the map coloring', type=click.types.INT, required=True)
 def solver(algorithm, k_coloring, number_of_nodes):
     """Solver to map coloring problem"""
+
     print("Solving for these parameters: ", "Algorithm:=", algorithm, ", Number of colors=", k_coloring,
           ", Number of nodes=", number_of_nodes)
 
-    # Define adjacency list graph to test it
-    graph = [
-        [1, 5],
-        [0, 2, 5],
-        [1, 3, 4],
-        [2, 4],
-        [2, 3, 5],
-        [0, 1, 4]
-    ]
+    # Generate a random graph.
+    graph, pos, edges = generate_random_graph(number_of_nodes)
+    # Plot the graph
+    plot_graph(pos, edges, number_of_nodes, False, k_coloring, [])
+
+    # Choose an algorithm to solve the graph
     if algorithm == "bt":
         solution_exits, answer = backtracking(number_of_nodes, graph, k_coloring)
         if solution_exits:
             print(answer)
+            plot_graph(pos, edges, number_of_nodes, True, k_coloring, answer)
         else:
             print("No Solution exits.")
     elif algorithm == "mc":
