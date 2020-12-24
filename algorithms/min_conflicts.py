@@ -33,34 +33,23 @@ def current_assignment_is_a_solution(number_of_nodes, graph, color_assignment):
 
 def choose_a_conflicted_node(number_of_nodes, graph, color_assignment):
     """
-    This function choose a random conflicted node to return it, if all randomly chosen nodes
-    have no conflicts in a certain max steps then try them one by one(not random).
+    This function choose a random conflicted node to return it.
     """
-    # This step to prevent it from choosing randomly forever
-    max_steps = 20
-    for step in range(max_steps):
-        # Choose a random node
-        randomly_chosen_node = random.randint(0, number_of_nodes-1)
-        # Check if this node has conflicts, if not choose another one randomly
-        for neighbor in graph[randomly_chosen_node]:
-            # Check if their is a conflict with a neighbor, if so return this chosen node
-            # , if not check the next neighbor
-            if color_assignment[neighbor] == color_assignment[randomly_chosen_node]:
-                return randomly_chosen_node
-
-    # If randomly chosen nodes has no conflicts then choose one by checking them sequential
-    print("min_conflicts sequential selection")
-    for node in range(number_of_nodes):
-        for neighbor in graph[node]:
-            # Check if their is a conflict with a neighbor, if so return this chosen node
-            # , if not check the next neighbor
-            if color_assignment[neighbor] == color_assignment[node]:
-                return node
+    # Find all conflicted nodes.
+    conflicted_nodes = []
+    for n in range(number_of_nodes):
+        for neighbor in graph[n]:
+            if color_assignment[neighbor] == color_assignment[n]:
+                conflicted_nodes.append(n)
+                break
+    # Pick one at random
+    randomly_chosen_node = random.choice(conflicted_nodes)
+    return randomly_chosen_node
 
 
 def minimize_conflicts(index_of_node, graph, color_assignment, k_coloring):
     """Given a certain variable(node) this function return the color which minimizes the conflicts"""
-    # Initialize it with a
+    # Initialize min number of conflicts equals to infinity
     min_number_of_conflicts = math.inf
     min_conflict_color = color_assignment[index_of_node]
     for color in range(k_coloring):
