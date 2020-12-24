@@ -5,7 +5,7 @@ import math
 def generate_random_graph(number_of_nodes):
     """This function generate random graph(test case) given the number of nodes"""
     # Add a seed to compare between algorithms with the same graphs
-    random.seed(1)
+    # random.seed(1)
     nodes = []
     # Generate random points
     for i in range(number_of_nodes):
