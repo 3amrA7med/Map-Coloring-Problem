@@ -33,20 +33,33 @@ def solver(algorithm, k_coloring, number_of_nodes):
         answer = min_conflicts(graph, number_of_nodes, k_coloring, 40)
         if answer:
             print(answer)
+            plot_graph(pos, edges, number_of_nodes, True, k_coloring, answer)
         else:
             print("No Solution exits.")
     elif algorithm == "bt-fc":
         solution_exits, answer = backtracking_with_forward_checking(number_of_nodes, graph, k_coloring)
         if solution_exits:
+            answer = modify_answer_format(answer, number_of_nodes)
             print(answer)
+            plot_graph(pos, edges, number_of_nodes, True, k_coloring, answer)
         else:
             print("No Solution exits.")
     elif algorithm == "bt-mac":
         solution_exits, answer = backtracking_with_mac(number_of_nodes, graph, k_coloring)
         if solution_exits:
+            answer = modify_answer_format(answer, number_of_nodes)
             print(answer)
+            plot_graph(pos, edges, number_of_nodes, True, k_coloring, answer)
         else:
             print("No Solution exits.")
+
+
+def modify_answer_format(answer, n):
+    """This function modifies the answer format returned from backtracking with forward checking and with mac"""
+    modified_answer = []
+    for i in range(n):
+        modified_answer.append(answer[i][0])
+    return modified_answer
 
 
 if __name__ == '__main__':
