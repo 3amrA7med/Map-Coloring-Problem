@@ -21,20 +21,24 @@ def solver(algorithm, k_coloring, number_of_nodes, max_steps, number_of_runs):
         k_coloring = 4
 
     print("Solving for these parameters: ", "Algorithm=", algorithm, ", Number of colors=", k_coloring,
-          ", Number of nodes=", number_of_nodes, "\nMax Steps used by min-conflicts algorithm=", max_steps,
-          "\nNumber of runs=", number_of_runs)
+          ", Number of nodes=", number_of_nodes, "\nNumber of runs=", number_of_runs)
+    if algorithm == "mc":
+        print("Max Steps used by min-conflicts algorithm=", max_steps)
 
+    # Variables used to gather statistics
     time_sum = 0
     solution_found_count = 0
+
+    # Main loop for each run
     for i in range(number_of_runs):
         # Generate a random graph.
         graph, pos, edges = generate_random_graph(number_of_nodes)
         if number_of_runs == 1:
-            # Plot the graph
+            # Plot the graph only if the number of runs is 1
             plot_graph(pos, edges, number_of_nodes, False, k_coloring, [])
 
         # Choose an algorithm to solve the graph
-        # Backtracking Algorithm
+        # 1-Backtracking Algorithm
         if algorithm == "bt":
             start_time = time.monotonic()
             solution_exits, answer = backtracking(number_of_nodes, graph, k_coloring)
@@ -48,7 +52,7 @@ def solver(algorithm, k_coloring, number_of_nodes, max_steps, number_of_runs):
             else:
                 if number_of_runs == 1:
                     print("No Solution exists.")
-        # Min-conflicts Algorithm
+        # 2-Min-conflicts Algorithm
         elif algorithm == "mc":
             start_time = time.monotonic()
             answer = min_conflicts(graph, number_of_nodes, k_coloring, max_steps)
@@ -62,7 +66,7 @@ def solver(algorithm, k_coloring, number_of_nodes, max_steps, number_of_runs):
             else:
                 if number_of_runs == 1:
                     print("No Solution exists.")
-        # Backtracking with forward checking
+        # 3-Backtracking with forward checking
         elif algorithm == "bt-fc":
             start_time = time.monotonic()
             solution_exits, answer = backtracking_with_forward_checking(number_of_nodes, graph, k_coloring)
@@ -77,7 +81,7 @@ def solver(algorithm, k_coloring, number_of_nodes, max_steps, number_of_runs):
             else:
                 if number_of_runs == 1:
                     print("No Solution exists.")
-        # Backtracking with mac
+        # 4-Backtracking with mac
         elif algorithm == "bt-mac":
             start_time = time.monotonic()
             solution_exits, answer = backtracking_with_mac(number_of_nodes, graph, k_coloring)

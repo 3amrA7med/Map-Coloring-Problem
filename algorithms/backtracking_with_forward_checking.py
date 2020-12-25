@@ -35,6 +35,10 @@ def backtracking_with_forward_checking_rec(index, number_of_nodes, graph, color_
 
 
 def forward_checking(index_of_the_node, graph, color_assigned_to_node, color_assignment):
+    """
+    This function perform forward checking on the color domains
+    , it removes the given color assigned to the given node from all the neighbors and perform a simple check
+    if a neighbor node color domain is empty it returns false"""
     for neighbor in graph[index_of_the_node]:
         # Check if this color is in the neighbor domain then remove it
         if color_assigned_to_node in color_assignment[neighbor]:
